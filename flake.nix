@@ -6,20 +6,25 @@
   };
 
   outputs = { self, nixpkgs }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-      lupl-emacs =
-        (pkgs.emacsPackagesFor pkgs.emacs).emacsWithPackages (epkgs: with epkgs; [
-          vterm
-          pdf-tools
-        ]);
-    in {
-      packages.${system}.default = lupl-emacs;
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
 
-      apps.${system}.default = {
-        type = "app";
-        program = "${lupl-emacs}/bin/emacs";
-      };
+    lupl-emacs =
+      (pkgs.emacsPackagesFor pkgs.emacs).emacsWithPackages (epkgs: with epkgs; [
+        vterm
+        pdf-tools
+      ]);
+
+    lupl-emacs-app = pkgs.writeShellScriptBin "lupl-emacs" ''
+      exec ${lupl-emacs}/bin/emacs --init-directory ${self} "$@"
+    '';
+  in {
+    packages.${system}.default = lupl-emacs;
+
+    apps.${system}.default = {
+      type = "app";
+      program = "${lupl-emacs-app}/bin/lupl-emacs";
     };
+  };
 }

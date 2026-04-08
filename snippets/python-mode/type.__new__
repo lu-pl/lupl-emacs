@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: type.__new__
+# key: _mnew
+# --
+def __new__(mcls, name, bases, cls_dict):
+    ${return} super().__new__(mcls, name, bases, cls_dict)

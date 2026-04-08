@@ -1,0 +1,7 @@
+
+# -*- mode: snippet -*-
+# name: __get__
+# key: _get
+# --
+def __get__(self, inst, owner):
+    $0

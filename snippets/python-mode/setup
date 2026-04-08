@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: setup
+# key: setup
+# group : definitions
+# --
+
+import setuptools
+
+setuptools.setup(
+    name='${1:mypackage}',
+    version='0.0.1',
+    install_requires=[
+        '${2:requests}',
+        'importlib-metadata; python_version == "${3:version-number}"',
+    ],
+)

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: async def
+# key: ad
+# group : definitions
+# --
+
+async def $0

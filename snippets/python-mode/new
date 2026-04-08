@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new
+# key: new
+# --
+
+def __new__(cls${, *args, **kwargs}):
+    $0

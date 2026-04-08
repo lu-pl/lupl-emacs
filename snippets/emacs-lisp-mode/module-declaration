@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: elisp-file-header
+# key: module
+# --
+;;; `(file-name-nondirectory (or (buffer-file-name) (buffer-name)))` --- ${1:description} -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+$0
+
+;;; Code:
+
+
+;;; `(file-name-nondirectory (or (buffer-file-name) (buffer-name)))` ends here

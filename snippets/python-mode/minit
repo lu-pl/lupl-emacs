@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: minit
+# key: minit
+# group : definitions
+# --
+
+def __init__(cls${1:, *args, **kwargs}):
+    ${1:$(elpy-snippet-init-assignments yas-text)}

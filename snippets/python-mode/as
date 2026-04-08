@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: asyncio
+# key: as
+# group : definitions
+# --
+
+asyncio.$0

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: class(parent): ...
+# key: cl
+# group: Definitions
+# --
+class ${1:ClassName}${2:(${3:object})}:
+    def __init__(self${5:, args}):
+        ${4:$(elpy-snippet-init-assignments yas-text)}
+	$0

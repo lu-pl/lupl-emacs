@@ -146,6 +146,7 @@
 (require 'init-org)
 (require 'init-embark)
 (require 'init-magit)
+(require 'init-sparql)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; local quirks

@@ -5,7 +5,7 @@
 ;;; Code:
 
 (use-package vundo
-  :bind (("C-x u" . vundo))
+  :bind (("C-c u" . vundo))
   :custom
   ;; Use the nicer Unicode drawing characters.
   (vundo-glyph-alist vundo-unicode-symbols)

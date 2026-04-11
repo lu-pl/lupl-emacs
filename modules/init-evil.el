@@ -29,7 +29,10 @@
         evil-split-window-below t)
 
   (evil-global-set-key 'motion "j" #'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" #'evil-previous-visual-line))
+  (evil-global-set-key 'motion "k" #'evil-previous-visual-line)
+  
+  ;; more granular undo behavior
+  (setq evil-want-fine-undo t))
 
 (use-package evil-collection
   :after evil

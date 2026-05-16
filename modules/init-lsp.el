@@ -12,11 +12,11 @@
    (nix-mode . eglot-ensure)
    (sparql-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs
-               '((python-mode python-ts-mode) . ("ty" "server")))
   ;; (add-to-list 'eglot-server-programs
-  ;;              '((python-mode python-ts-mode)
-  ;;                "basedpyright-langserver" "--stdio"))
+  ;;              '((python-mode python-ts-mode) . ("ty" "server")))
+  (add-to-list 'eglot-server-programs
+               '((python-mode python-ts-mode)
+                 "basedpyright-langserver" "--stdio"))
   (add-to-list 'eglot-server-programs
                '(nix-mode . ("nixd")))
   (add-to-list 'eglot-server-programs

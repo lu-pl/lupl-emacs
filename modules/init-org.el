@@ -60,7 +60,10 @@
      (emacs-lisp . t))))
 
 (use-package org-bullets
-  :hook (org-mode . org-bullets-mode))
+  :hook (org-mode . org-bullets-mode)
+  :config
+  (setq org-bullets-bullet-list
+	'("◉" "•" "►" ">" "→")))
 
 (provide 'init-org)
 

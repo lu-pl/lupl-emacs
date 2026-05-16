@@ -14,8 +14,14 @@
         evil-want-C-i-jump nil
         evil-respect-visual-line-mode t
         evil-undo-system 'undo-fu)
+ 
   :config
   (evil-mode 1)
+  
+  ;; override org binding
+  (with-eval-after-load 'org
+    (evil-define-key '(emacs normal motion visual) org-mode-map
+      (kbd "M-<return>") #'vterm))
 
   ;; behold, the chad setting!
   (defalias 'evil-insert-state 'evil-emacs-state)
@@ -33,6 +39,7 @@
   
   ;; more granular undo behavior
   (setq evil-want-fine-undo t))
+  
 
 (use-package evil-collection
   :after evil

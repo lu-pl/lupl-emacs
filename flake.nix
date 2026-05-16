@@ -14,6 +14,7 @@
       (pkgs.emacsPackagesFor pkgs.emacs).emacsWithPackages (epkgs: with epkgs; [
         vterm
         pdf-tools
+        auctex
       ]);
 
     lupl-emacs-app = pkgs.writeShellScriptBin "lupl-emacs" ''

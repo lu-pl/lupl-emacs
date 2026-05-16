@@ -22,8 +22,8 @@
 (use-package cape
   :init
   ;; Add useful non-LSP completion sources.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file t)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev t)
 
   ;; make dabbrev a bit less noisy.
   (setq cape-dabbrev-min-length 2))

@@ -1,4 +1,4 @@
- ;;; init-envrc.el --- envrc setup -*- lexical-binding: t; -*-
+;;; init-envrc.el --- envrc setup -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 

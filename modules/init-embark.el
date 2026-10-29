@@ -1,4 +1,4 @@
- ;;; init-embark.el --- Embark actions -*- lexical-binding: t; -*-
+;;; init-embark.el --- Embark actions -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 

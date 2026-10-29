@@ -1,4 +1,3 @@
-
 ;;; init-folding.el --- Code folding setup -*- lexical-binding: t; -*-
 
 ;;; Commentary:

@@ -4,7 +4,7 @@
   :ensure nil 
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :config
-  (pdf-tools-install :no-query) 
+  (pdf-tools-install) 
   
   (setq-default pdf-view-display-size 'fit-page)
   
@@ -16,4 +16,6 @@
   ;; Dark mode support
   (add-hook 'pdf-view-mode-hook #'pdf-view-midnight-minor-mode))
 
+
 (provide 'init-pdf)
+

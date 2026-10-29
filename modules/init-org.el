@@ -16,8 +16,8 @@
   ;; general
   (org-pretty-entities t)
   (org-hide-emphasis-markers t)
-  (org-image-actual-width 800)
   (org-startup-with-inline-images t)
+  (org-image-actual-width nil)
 
   ;; TODO workflow
   (org-todo-keywords

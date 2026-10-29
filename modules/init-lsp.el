@@ -8,19 +8,16 @@
   :ensure nil
   :commands (eglot eglot-ensure)
   :hook
-  ((python-mode . eglot-ensure)
-   (nix-mode . eglot-ensure)
-   (sparql-mode . eglot-ensure))
+  ((python-mode nix-mode sparql-mode ttl-mode) . eglot-ensure)
   :config
-  ;; (add-to-list 'eglot-server-programs
-  ;;              '((python-mode python-ts-mode) . ("ty" "server")))
-  (add-to-list 'eglot-server-programs
-               '((python-mode python-ts-mode)
-                 "basedpyright-langserver" "--stdio"))
-  (add-to-list 'eglot-server-programs
-               '(nix-mode . ("nixd")))
-  (add-to-list 'eglot-server-programs
-               '(sparql-mode . ("qlue-ls" "server"))))
+  (setq eglot-server-programs
+        (append
+         '(((python-mode python-ts-mode)
+            "pyright-langserver" "--stdio")
+           (nix-mode "nixd")
+           (sparql-mode "qlue-ls" "server")
+           ((ttl-mode :language-id "turtle") "swls"))
+         eglot-server-programs)))
 
 (provide 'init-lsp)
 

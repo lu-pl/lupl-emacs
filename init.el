@@ -32,6 +32,12 @@
 
 (setq package-native-compile t)
 
+;; Async native-compilation of newly-installed packages can warn about
+;; functions that don't exist on this Emacs/library version (harmless
+;; when the affected code path is never actually called); log instead
+;; of popping up the *Warnings* buffer every time.
+(setq native-comp-async-report-warnings-errors 'silent)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -153,6 +159,20 @@
 (require 'init-embark)
 (require 'init-magit)
 (require 'init-sparql)
+(require 'init-latex)
+(require 'init-nyan)
+(require 'init-envrc)
+(require 'functions)
+(require 'init-folding)
+(require 'init-ttl)
+(require 'init-zoom)
+(require 'init-pdf)
+(require 'init-project)
+(require 'init-server)
+(require 'init-vundo)
+(require 'init-which-key)
+(require 'init-dape)
+(require 'init-rdf-prefix)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; local quirks

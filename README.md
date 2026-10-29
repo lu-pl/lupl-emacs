@@ -1,5 +1,7 @@
 # LUPL Emacs config
 
+<img src="uwu.svg" width="400">
+
 Emacs config built as a Nix flake: every package declared with `use-package` is
 provided by Nix (via [emacs-overlay](https://github.com/nix-community/emacs-overlay)'s
 `emacsWithPackagesFromUsePackage`), pinned in `flake.lock`.

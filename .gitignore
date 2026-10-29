@@ -65,3 +65,9 @@ flycheck_*.el
 
 
 # End of https://www.toptal.com/developers/gitignore/api/emacs
+
+# runtime state
+url/
+elfeed/
+projects
+dape-breakpoints

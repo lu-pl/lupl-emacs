@@ -5,6 +5,7 @@
 ;;; Code:
 
 (use-package face-remap
+  :ensure nil
   :demand t
   :bind (("C-M-=" . global-text-scale-adjust)
          ("C-M--" . global-text-scale-adjust)

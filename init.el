@@ -134,6 +134,30 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; When Emacs is built by Nix (see flake.nix), every use-package package is
+;; provided by the Nix build, so use-package must never install from ELPA:
+;; a package missing there is a gap in the Nix build and should fail loudly.
+;; `M-x try' and `M-x package-install' still work for trying things out.
+(defvar lupl/nix-missing-packages nil
+  "Packages use-package wanted that the Nix build doesn't provide.")
+
+(defun lupl/use-package-ensure-nix (name args _state &optional _no-refresh)
+  "Like `use-package-ensure-elpa', but signal an error instead of installing."
+  (dolist (ensure args)
+    (let ((package (or (and (eq ensure t) (use-package-as-symbol name))
+                       ensure)))
+      (when (consp package)
+        (setq package (car package)))
+      (when (and package (not (package-installed-p package)))
+        (push package lupl/nix-missing-packages)
+        (error "Package `%s' is not provided by the Nix build; rebuild the flake" package)))))
+
+(when (string-prefix-p "/nix/store/" invocation-directory)
+  (setq use-package-ensure-function #'lupl/use-package-ensure-nix))
+
+(use-package try
+  :commands try)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; module loading
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -73,26 +73,7 @@
             postBuild = ": ${check}";
             meta.mainProgram = "emacs";
           };
-
-          # Emacs bundled with this config, for trying it without touching ~/.emacs.d.
-          # State (history, bookmarks, custom.el, ...) goes to ~/.local/state/lupl-emacs.
-          with-config = pkgs.writeShellScriptBin "lupl-emacs" ''
-            state="''${XDG_STATE_HOME:-$HOME/.local/state}/lupl-emacs"
-            ${pkgs.coreutils}/bin/mkdir -p "$state"
-            for f in ${self}/*; do
-              ${pkgs.coreutils}/bin/ln -sfn "$f" "$state/''${f##*/}"
-            done
-            exec ${self.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/emacs \
-              --init-directory "$state" "$@"
-          '';
         });
-
-      apps = forAllSystems (pkgs: {
-        default = {
-          type = "app";
-          program = "${self.packages.${pkgs.stdenv.hostPlatform.system}.with-config}/bin/lupl-emacs";
-        };
-      });
 
       checks = forAllSystems (pkgs: {
         default = checkFor pkgs (emacsFor pkgs);

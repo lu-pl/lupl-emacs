@@ -10,25 +10,25 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     swls.url = "github:SemanticWebLanguageServer/swls";
+
+    # SPARQL language server source (no upstream flake); `nix flake update qlue-ls-src`
+    qlue-ls-src = {
+      url = "github:IoannisNezis/Qlue-ls";
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, flake-utils, swls, ... }:
+  outputs = { nixpkgs, flake-utils, swls, qlue-ls-src, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
 
-        # SPARQL language server; not in nixpkgs and no upstream flake.
-        # Only built when listed in packages below.
-        qlue-ls = pkgs.rustPlatform.buildRustPackage rec {
+        # Built from the locked qlue-ls-src, only when listed in packages below.
+        qlue-ls = pkgs.rustPlatform.buildRustPackage {
           pname = "qlue-ls";
-          version = "2.5.3";
-          src = pkgs.fetchFromGitHub {
-            owner = "IoannisNezis";
-            repo = "Qlue-ls";
-            rev = version;
-            hash = "sha256-pt/fR0JAsQO9EeIjLTiwKdpx9gusC4HaDcybhh1glrE=";
-          };
-          cargoHash = "sha256-JoJHU05ZPO7WcBSMsecBdZjxDDga8WlDiViFgF764sU=";
+          version = (builtins.fromTOML (builtins.readFile "$\{qlue-ls-src\}/Cargo.toml")).package.version;
+          src = qlue-ls-src;
+          cargoLock.lockFile = "$\{qlue-ls-src\}/Cargo.lock";
           doCheck = false;
         };
       in {

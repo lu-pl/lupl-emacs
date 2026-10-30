@@ -56,6 +56,8 @@
         swls.packages.${pkgs.stdenv.hostPlatform.system}.default
         # formatting / linting (modules/init-python.el)
         pkgs.ruff
+        # Nix formatting: nix-format-buffer, and eglot-format-buffer via nixd
+        pkgs.nixfmt
         # Common Lisp for sly (modules/init-cl.el)
         pkgs.sbcl
         # magit, consult-ripgrep, envrc

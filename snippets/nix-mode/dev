@@ -16,6 +16,21 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+
+        # SPARQL language server; not in nixpkgs and no upstream flake.
+        # Only built when listed in packages below.
+        qlue-ls = pkgs.rustPlatform.buildRustPackage rec {
+          pname = "qlue-ls";
+          version = "2.5.3";
+          src = pkgs.fetchFromGitHub {
+            owner = "IoannisNezis";
+            repo = "Qlue-ls";
+            rev = version;
+            hash = "sha256-pt/fR0JAsQO9EeIjLTiwKdpx9gusC4HaDcybhh1glrE=";
+          };
+          cargoHash = "sha256-JoJHU05ZPO7WcBSMsecBdZjxDDga8WlDiViFgF764sU=";
+          doCheck = false;
+        };
       in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
@@ -37,8 +52,9 @@
             # nixd
             # nixfmt
 
-            ## Semantic web (eglot: swls for Turtle; qlue-ls for SPARQL isn't packaged)
+            ## Semantic web (eglot: swls for Turtle, qlue-ls for SPARQL)
             # swls.packages.$\{system\}.default
+            # qlue-ls
           ];
         };
       }

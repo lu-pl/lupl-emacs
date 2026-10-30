@@ -41,6 +41,22 @@
         ];
       };
 
+      # Programs the config calls out to. They're appended to Emacs' PATH, so tools from
+      # the environment (e.g. a project's devShell via envrc) take precedence and these
+      # are only the fallback.
+      toolsFor = pkgs: [
+        # language servers (eglot, see modules/init-lsp.el)
+        pkgs.pyright
+        pkgs.nixd
+        (pkgs.callPackage ./pkgs/qlue-ls.nix { })
+        # formatting / linting (modules/init-python.el)
+        pkgs.ruff
+        # magit, consult-ripgrep, envrc
+        pkgs.git
+        pkgs.ripgrep
+        pkgs.direnv
+      ];
+
       # Load the whole config in batch mode; fails if any form errors or if
       # use-package wants a package the Nix build doesn't provide.
       checkFor = pkgs: emacs: pkgs.runCommand "lupl-emacs-config-check" { } ''
@@ -67,7 +83,12 @@
           default = pkgs.symlinkJoin {
             name = "lupl-emacs-${pkgs.emacs.version}";
             paths = [ emacs ];
-            postBuild = ": ${check}";
+            nativeBuildInputs = [ pkgs.makeWrapper ];
+            postBuild = ''
+              : ${check}
+              wrapProgram $out/bin/emacs \
+                --suffix PATH : ${pkgs.lib.makeBinPath (toolsFor pkgs)}
+            '';
             meta.mainProgram = "emacs";
           };
 
@@ -75,9 +96,9 @@
           # State (history, bookmarks, custom.el, ...) goes to ~/.local/state/lupl-emacs.
           with-config = pkgs.writeShellScriptBin "lupl-emacs" ''
             state="''${XDG_STATE_HOME:-$HOME/.local/state}/lupl-emacs"
-            mkdir -p "$state"
+            ${pkgs.coreutils}/bin/mkdir -p "$state"
             for f in ${self}/*; do
-              ln -sfn "$f" "$state/$(basename "$f")"
+              ${pkgs.coreutils}/bin/ln -sfn "$f" "$state/''${f##*/}"
             done
             exec ${self.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/emacs \
               --init-directory "$state" "$@"

@@ -56,6 +56,8 @@
         swls.packages.${pkgs.stdenv.hostPlatform.system}.default
         # formatting / linting (modules/init-python.el)
         pkgs.ruff
+        # Common Lisp for sly (modules/init-cl.el)
+        pkgs.sbcl
         # magit, consult-ripgrep, envrc
         pkgs.git
         pkgs.ripgrep

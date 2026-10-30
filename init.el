@@ -197,6 +197,7 @@
 (require 'init-which-key)
 (require 'init-dape)
 (require 'init-rdf-prefix)
+(require 'init-markdown)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; local quirks

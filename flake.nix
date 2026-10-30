@@ -33,6 +33,11 @@
         extraEmacsPackages = epkgs: [
           epkgs.vterm
           epkgs.pdf-tools
+          # Compiled tree-sitter grammars for markdown-ts-mode; wrapper.nix
+          # links these into $out/lib and adds that to treesit-extra-load-path,
+          # so no manual `treesit-install-language-grammar` is needed.
+          (epkgs.treesit-grammars.with-grammars
+            (g: [ g.tree-sitter-markdown g.tree-sitter-markdown-inline ]))
         ];
       };
 

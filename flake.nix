@@ -9,13 +9,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
-
-    # Turtle/SHACL language server. Deliberately not following our nixpkgs: it's
-    # built with its own Rust toolchain, and its runtime closure is tiny.
-    swls.url = "github:SemanticWebLanguageServer/swls";
   };
 
-  outputs = { self, nixpkgs, emacs-overlay, swls }:
+  outputs = { self, nixpkgs, emacs-overlay }:
     let
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
@@ -45,27 +41,6 @@
         ];
       };
 
-      # Programs the config calls out to. They're appended to Emacs' PATH, so tools from
-      # the environment (e.g. a project's devShell via envrc) take precedence and these
-      # are only the fallback.
-      toolsFor = pkgs: [
-        # language servers (eglot, see modules/init-lsp.el)
-        pkgs.pyright
-        pkgs.nixd
-        (pkgs.callPackage ./pkgs/qlue-ls.nix { })
-        swls.packages.${pkgs.stdenv.hostPlatform.system}.default
-        # formatting / linting (modules/init-python.el)
-        pkgs.ruff
-        # Nix formatting: nix-format-buffer, and eglot-format-buffer via nixd
-        pkgs.nixfmt
-        # Common Lisp for sly (modules/init-cl.el)
-        pkgs.sbcl
-        # magit, consult-ripgrep, envrc
-        pkgs.git
-        pkgs.ripgrep
-        pkgs.direnv
-      ];
-
       # Load the whole config in batch mode; fails if any form errors or if
       # use-package wants a package the Nix build doesn't provide.
       checkFor = pkgs: emacs: pkgs.runCommand "lupl-emacs-config-check" { } ''
@@ -89,15 +64,13 @@
         in
         {
           # Strict: only builds if the config loads cleanly with exactly these packages.
+          # (`: ${check}` does nothing at build time; referencing it makes the check a
+          # build dependency.) External tools (language servers etc.) are not bundled;
+          # they come from PATH, e.g. a project's dev shell via envrc.
           default = pkgs.symlinkJoin {
             name = "lupl-emacs-${pkgs.emacs.version}";
             paths = [ emacs ];
-            nativeBuildInputs = [ pkgs.makeWrapper ];
-            postBuild = ''
-              : ${check}
-              wrapProgram $out/bin/emacs \
-                --suffix PATH : ${pkgs.lib.makeBinPath (toolsFor pkgs)}
-            '';
+            postBuild = ": ${check}";
             meta.mainProgram = "emacs";
           };
 

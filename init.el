@@ -198,6 +198,7 @@
 (require 'init-dape)
 (require 'init-rdf-prefix)
 (require 'init-markdown)
+(require 'init-pilish)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; local quirks

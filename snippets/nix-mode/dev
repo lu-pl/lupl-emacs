@@ -20,9 +20,24 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             ## package definitions go here
+
+            ## Python (eglot: pyright)
             # python312
             # uv
             # ruff
+            # pyright
+
+            ## Common Lisp (sly)
+            # sbcl
+
+            ## Prolog (sweeprolog)
+            # swi-prolog
+
+            ## Nix (eglot: nixd; also installed system-wide)
+            # nixd
+            # nixfmt
+
+            ## Semantic web (eglot: swls for Turtle; qlue-ls for SPARQL isn't packaged)
             # swls.packages.$\{system\}.default
           ];
         };

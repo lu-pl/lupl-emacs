@@ -37,7 +37,17 @@
           # links these into $out/lib and adds that to treesit-extra-load-path,
           # so no manual `treesit-install-language-grammar` is needed.
           (epkgs.treesit-grammars.with-grammars
-            (g: [ g.tree-sitter-markdown g.tree-sitter-markdown-inline ]))
+            (g: [
+              g.tree-sitter-markdown
+              g.tree-sitter-markdown-inline
+              g.tree-sitter-nix
+              # Optional, for code blocks in pilish chats (see init-pilish.el).
+              g.tree-sitter-bash
+              g.tree-sitter-json
+              g.tree-sitter-python
+              g.tree-sitter-toml
+              g.tree-sitter-yaml
+            ]))
         ];
       };
 

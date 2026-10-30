@@ -9,9 +9,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
+
+    # Turtle/SHACL language server. Deliberately not following our nixpkgs: it's
+    # built with its own Rust toolchain, and its runtime closure is tiny.
+    swls.url = "github:SemanticWebLanguageServer/swls";
   };
 
-  outputs = { self, nixpkgs, emacs-overlay }:
+  outputs = { self, nixpkgs, emacs-overlay, swls }:
     let
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
@@ -49,6 +53,7 @@
         pkgs.pyright
         pkgs.nixd
         (pkgs.callPackage ./pkgs/qlue-ls.nix { })
+        swls.packages.${pkgs.stdenv.hostPlatform.system}.default
         # formatting / linting (modules/init-python.el)
         pkgs.ruff
         # magit, consult-ripgrep, envrc

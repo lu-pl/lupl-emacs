@@ -11,7 +11,7 @@
 
     swls.url = "github:SemanticWebLanguageServer/swls";
 
-    # SPARQL language server source (no upstream flake); `nix flake update qlue-ls-src`
+    # SPARQL language server source (no upstream flake); \`nix flake update qlue-ls-src\`
     qlue-ls-src = {
       url = "github:IoannisNezis/Qlue-ls";
       flake = false;

@@ -199,6 +199,7 @@
 (require 'init-rdf-prefix)
 (require 'init-markdown)
 (require 'init-pilish)
+(require 'init-agent-shell)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; local quirks
